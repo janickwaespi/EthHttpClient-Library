@@ -7,11 +7,13 @@
 
 class EthHttpClient{
   public:
-    EthHttpClient(String defaultPath, EthernetClient client);
+    EthHttpClient(IPAddress server, EthernetClient client, String defaultPath);
     void Post(String path, String jsonBody);
+    void Put(String path, String jsonBody);
   private:
     String _defaultPath;
     EthernetClient _client;
+    IPAddress _server;
 };
 
 
