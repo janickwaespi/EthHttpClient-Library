@@ -10,6 +10,8 @@ class EthHttpClient{
     EthHttpClient(IPAddress server, EthernetClient client, String defaultPath);
     void Post(String path, String jsonBody);
     void Put(String path, String jsonBody);
+    void Get(String path, String jsonBody);
+    //void Get(String path);
   private:
     String _defaultPath;
     EthernetClient _client;
