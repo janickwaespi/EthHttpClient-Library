@@ -9,7 +9,7 @@ class EthHttpClient{
     void Post(String path, String jsonBody);
     void Put(String path, String jsonBody);
     void Get(String path, String jsonBody);
-    
+    void Delete(String path, String jsonBody);
   private:
     String _defaultPath;
     EthernetClient _client;

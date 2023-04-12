@@ -29,6 +29,12 @@ void EthHttpClient::Get(String path, String jsonBody){
   SendRequest("GET", path, jsonBody);
 }
 // ---------------------------------------------------------
+// Delete request
+// ---------------------------------------------------------
+void EthHttpClient::Delete(String path, String jsonBody){ 
+  SendRequest("DELETE", path, jsonBody);
+}
+// ---------------------------------------------------------
 // Handles Post, Put and Get requests
 // ---------------------------------------------------------
 void EthHttpClient::SendRequest(String Method, String path, String jsonBody){
@@ -54,7 +60,8 @@ void EthHttpClient::SendRequest(String Method, String path, String jsonBody){
     }
   }
   // disconnect from server
-  Serial.println("/nDisconnected from server");
+  Serial.println("Disconnected from server");
+  Serial.println("");
   _client.stop();
   delay(5);
 }
