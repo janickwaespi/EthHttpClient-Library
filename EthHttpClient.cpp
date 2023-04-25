@@ -13,35 +13,35 @@ EthHttpClient::EthHttpClient(IPAddress server, EthernetClient client, String def
 // ---------------------------------------------------------
 // Post request
 // ---------------------------------------------------------
-void EthHttpClient::Post(String path, String jsonBody){ 
-  SendRequest("POST", path, jsonBody);
+String EthHttpClient::Post(String path, String jsonBody){ 
+  return SendRequest("POST", path, jsonBody);
 }
 // ---------------------------------------------------------
 // Put request
 // ---------------------------------------------------------
-void EthHttpClient::Put(String path, String jsonBody){ 
-  SendRequest("PUT", path, jsonBody);
+String EthHttpClient::Put(String path, String jsonBody){ 
+  return SendRequest("PUT", path, jsonBody);
 }
 // ---------------------------------------------------------
 // Get request
 // ---------------------------------------------------------
-void EthHttpClient::Get(String path, String jsonBody){ 
-  SendRequest("GET", path, jsonBody);
+String EthHttpClient::Get(String path, String jsonBody){ 
+  return SendRequest("GET", path, jsonBody);
 }
 // ---------------------------------------------------------
 // Delete request
 // ---------------------------------------------------------
-void EthHttpClient::Delete(String path, String jsonBody){ 
-  SendRequest("DELETE", path, jsonBody);
+String EthHttpClient::Delete(String path, String jsonBody){ 
+  return SendRequest("DELETE", path, jsonBody);
 }
 // ---------------------------------------------------------
 // Handles Post, Put and Get requests
 // ---------------------------------------------------------
-void EthHttpClient::SendRequest(String Method, String path, String jsonBody){
+String EthHttpClient::SendRequest(String method, String path, String jsonBody){
   // connect to server
   if (_client.connect(_server, 80)) { 
     // http Post protocol
-    _client.println(Method + " " + _defaultPath + path + " HTTP/1.1");
+    _client.println(method + " " + _defaultPath + path + " HTTP/1.1");
     _client.println("Host: 10.0.2.109"); 
     _client.println("Content-Type: application/json");
     _client.print("Content-Length: ");
@@ -53,10 +53,12 @@ void EthHttpClient::SendRequest(String Method, String path, String jsonBody){
     Serial.println("Connection failed");
   }
   // receive feedback
+  String response = "";
   while (_client.connected()) {
     if (_client.available()) {
       char c = _client.read();
       Serial.print(c);
+      response += c;
     }
   }
   // disconnect from server
@@ -64,4 +66,6 @@ void EthHttpClient::SendRequest(String Method, String path, String jsonBody){
   Serial.println("");
   _client.stop();
   delay(5);
+
+  return response;
 }
